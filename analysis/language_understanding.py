@@ -1,6 +1,4 @@
-from nltk import tag, tokenize
 import spacy
-from spacy import displacy
 
 
 def parse_sentence(sentence):

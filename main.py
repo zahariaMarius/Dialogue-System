@@ -1,20 +1,12 @@
-from analysis import speech_recognizer as sr
-from analysis import language_understanding as lu
-from db import potion_dictionary as pd
-from dm import frames
+import dm.dialog_manager as dm
 
 if __name__ == '__main__':
-    sentence = 'the main ingredients are fluxweed, knotgrass and lacewing flies'
-    #lu.parse_sentence(sentence)
+    # crea manager e inizializza il contesto
 
-    print(pd.potions['polyjuice'])
+    dialog_manager = dm.DialogManager()
+    print(type(dialog_manager.dialog_context_model.context))
 
-    juice = frames.PotionFrame('polyjuice', len(pd.potions['polyjuice']))
+    sentence = 'cacca'
+    dialog_manager.user_input(sentence)
 
-    print(type(juice.name))
-    print(juice.ingredients)
-    print(type(juice.ingredients[0]))
-    juice.ingredients[0] = frames.IngredientFrame('weed')
-    print(type(juice.ingredients[0]))
-    print(isinstance(juice.ingredients[0], frames.IngredientFrame))
-
+    dialog_manager.system_output()
