@@ -5,8 +5,6 @@ from simplenlg.realiser.english import *
 from simplenlg.phrasespec import *
 from simplenlg.features import *
 import random
-from generation.text_to_speech import TextToSpeech
-
 
 class ResponseGenerator:
     lexicon = Lexicon.getDefaultLexicon()
@@ -50,7 +48,4 @@ class ResponseGenerator:
             random.randrange(4)]
         answer += ', I suggest you tell me some real ingredients'
         print(answer)
-        accazzo= TextToSpeech()
-        accazzo.say(answer)
-        accazzo.say('sciau belo')
         return answer

@@ -7,7 +7,7 @@ class DialogControl:
     def __init__(self, dialog_context_model: DialogContextModel) -> None:
         super().__init__()
         self._dialog_context_model = dialog_context_model
-        self._response_generator= ResponseGenerator()
+        self._response_generator = ResponseGenerator()
 
     def choose_response(self):
         mem = self._dialog_context_model.memory.get_data_frame()
