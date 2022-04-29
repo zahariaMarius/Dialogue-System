@@ -14,8 +14,10 @@ class DialogManager:
         super().__init__()
         self.dialog_context_model()
 
-    def user_input(self, sentence: str):
-        self.dialog_context_model.process_input(sentence)
-
+    #output da parte del systema, la frase viene scelta dal metodo choose_output()
     def system_output(self):
-        self.dialog_control.choose_response()
+        return self.dialog_control.choose_output()
+
+    #input da parte dell'utente, viene analizzato dal metodo process_input()
+    def user_input(self, sentence: str):
+        return self.dialog_context_model.process_input(sentence)

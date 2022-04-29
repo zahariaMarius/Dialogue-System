@@ -6,6 +6,7 @@ from simplenlg.phrasespec import *
 from simplenlg.features import *
 import random
 
+
 class ResponseGenerator:
     lexicon = Lexicon.getDefaultLexicon()
     nlgFactory = NLGFactory(lexicon)
@@ -17,14 +18,17 @@ class ResponseGenerator:
     def evaluate(self):
         return 10
 
-    # per risposte parzialmente giuste (o mancano ingredienti o alcuni sono giusti e altri no)
-    def clarify(self):
-        ing = self.nlgFactory.createNounPhrase('amorentia')
-        ing.addPreModifier('sure about')
-        clause = self.nlgFactory.createClause('you', 'be', ing)
-        clause.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.YES_NO)
+    def initiate_exam(self, potion):
+        return "Mr Potter, tell me the ingredients for " + potion + " potion"
 
-        print(self.realiser.realiseSentence(clause))
+    # per risposte parzialmente giuste (o mancano ingredienti o alcuni sono giusti e altri no)
+    def clarify(self, data_frame, expected):
+        # if intent == 'ingredient':
+            ing = self.nlgFactory.createNounPhrase('amorentia')
+            ing.addPreModifier('sure about')
+            clause = self.nlgFactory.createClause('you', 'be', ing)
+            clause.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.YES_NO)
+            return str(self.realiser.realise(clause))
 
     # per risposte giuste
     def approval(self):
@@ -47,5 +51,7 @@ class ResponseGenerator:
                   'How extraordinarily like your father you are, Potter. He too was exceedingly bad at potions'][
             random.randrange(4)]
         answer += ', I suggest you tell me some real ingredients'
-        print(answer)
         return answer
+
+    def greeting(self, potion):
+        return "Ciao stronzo"

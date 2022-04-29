@@ -8,6 +8,13 @@ class Frame:
                 setattr(self, attribute, ingredient)
                 break
 
+    def get_ingredients(self):
+        ingredients = []
+        for attribute, value in self.__dict__.items():
+            if value is not None:
+                ingredients.append(value)
+        return ingredients
+
     def is_complete(self):
         ing = 0
         for attribute, value in self.__dict__.items():
@@ -22,6 +29,7 @@ class Frame:
                 print(attribute, '=', value.name)
             else:
                 print(attribute, '=', value)
+
 
 class IngredientFrame:
     def __init__(self, name) -> None:

@@ -1,4 +1,9 @@
+import numpy as np
+
 import dm.dialog_manager as dm
+import warnings
+
+warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning)
 
 if __name__ == '__main__':
     #crea manager e inizializza il contesto
