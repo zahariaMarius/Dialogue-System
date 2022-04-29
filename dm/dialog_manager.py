@@ -1,6 +1,10 @@
 from dm import dialog_control
 from dm import context_model
 
+"""
+classe che inizializza il ControlDialog e il ControlManager
+e gestisce l'output (sistema) e l'input (utente)
+"""
 
 class DialogManager:
     dialog_context_model = context_model.DialogContextModel()

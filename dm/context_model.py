@@ -4,7 +4,16 @@ from dm import frames
 from analysis import language_understanding as lu
 import pandas as pd
 
-
+"""
+Classe che gestisce la memoria, è una tabella con i seguenti campi:
+- intent --> l'intent del sistema (tipo di domanda)
+- expected --> la giusta risposta che il sistema si aspetta di ricevere
+- sentence --> la risposta dell'utente al sistema
+- right --> numero di ingredienti giusti all'interno della sentence
+- wrong --> nuemero di ingredienti sbagliati all'interno della sentence
+- matched --> True se la sentence == expected, False altrimenti
+- complete --> numero di slot del frame riepiti 
+"""
 class Memory:
     def __init__(self) -> None:
         super().__init__()

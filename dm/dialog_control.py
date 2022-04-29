@@ -9,7 +9,7 @@ class DialogControl:
         self._dialog_context_model = dialog_context_model
         self._response_generator = ResponseGenerator()
 
-    def choose_response(self):
+    def choose_output(self):
         mem = self._dialog_context_model.memory.get_data_frame()
         right = mem['right'].values[-1]
         wrong = mem['wrong'].values[-1]

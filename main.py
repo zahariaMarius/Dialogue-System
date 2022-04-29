@@ -1,12 +1,15 @@
 import dm.dialog_manager as dm
 
 if __name__ == '__main__':
-    # crea manager e inizializza il contesto
-
+    #crea manager e inizializza il contesto
     dialog_manager = dm.DialogManager()
-    print(type(dialog_manager.dialog_context_model.context))
 
-    sentence = 'cacca'
-    dialog_manager.user_input(sentence)
+    while True:
+        print(dialog_manager.dialog_context_model.memory.get_data_frame())
+        print()
+        print("Professor Snape: " + dialog_manager.system_output())
+        print()
+        print(dialog_manager.dialog_context_model.memory.get_data_frame()['expected'])
+        print()
+        dialog_manager.user_input(input('Potter: '))
 
-    dialog_manager.system_output()
