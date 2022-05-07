@@ -1,8 +1,8 @@
-potions = {"polyjuice": ['fluxweed', 'knotgrass', 'lacewing flies', 'leeches', 'horn of bicorn', 'boomslang skin',
-                         'a piece of the person you are turning into', 'hair', 'nail', 'skin'],
-           "armadillo bile mixture": ['bat wings', 'armadillo bile', 'wormwood', 'amorentia', 'acromantula venom',
-                                      'aconite', 'water'],
-           "animagus": ['mandrake leaf', 'drinker\'s hair', 'dew', 'death\'s-head hawk chrysalis']}
+potions = {
+    "polyjuice": ['fluxweed', 'knotgrass', 'lacewing flies', 'leeches', 'horn of bicorn', 'boomslang skin', 'hair'],
+    "armadillo bile mixture": ['bat wings', 'armadillo bile', 'wormwood', 'amorentia', 'acromantula venom',
+                               'aconite', 'water'],
+    "animagus": ['mandrake leaf', 'drinker\'s hair', 'dew', 'death\'s-head hawk chrysalis']}
 
 ingredients = ['fluxweed', 'knotgrass', 'lacewing flies', 'leeches', 'horn of bicorn', 'boomslang skin',
                'a piece of the person you are turning into', 'hair', 'nail', 'skin', 'bat wings', 'armadillo bile',

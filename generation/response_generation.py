@@ -50,8 +50,8 @@ class ResponseGenerator:
                   'Mr Potter you better concentrate if you don\'t want me to take away points from Gryffindor',
                   'How extraordinarily like your father you are, Potter. He too was exceedingly bad at potions'][
             random.randrange(4)]
-        answer += ', I suggest you tell me some real ingredients'
+        answer += ', I suggest you tell me some ingredients'
         return answer
 
     def greeting(self, potion):
-        return "Ciao stronzo"
+        return "Welcome Mr. Potter"

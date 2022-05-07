@@ -25,7 +25,6 @@ class Frame:
     def show_attributes(self):
         for attribute, value in self.__dict__.items():
             if value is not None:
-                print(type(value))
                 print(attribute, '=', value.name)
             else:
                 print(attribute, '=', value)
