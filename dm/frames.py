@@ -12,7 +12,7 @@ class Frame:
         ingredients = []
         for attribute, value in self.__dict__.items():
             if value is not None:
-                ingredients.append(value)
+                ingredients.append(value.name)
         return ingredients
 
     def is_complete(self):

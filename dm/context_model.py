@@ -37,10 +37,15 @@ class Memory:
     def get_data_frame(self):
         return self._data_frame
 
-    def user_update(self, sentence: str = None, right: int = None, wrong: int = None,
+    def user_update(self, sentence: str = None, right=None, wrong=None,
                     matched: bool = None, complete: float = None):
-        self._data_frame.loc[-1:, ['sentence', 'right', 'wrong', 'matched', 'complete']] = [sentence, right, wrong,
-                                                                                           matched, complete]
+        if wrong is None:
+            wrong = []
+        if right is None:
+            right = []
+        self._data_frame.loc[self._data_frame.index[-1], ['sentence', 'right', 'wrong', 'matched', 'complete']] = [
+            sentence, right, wrong,
+            matched, complete]
 
     def system_update(self, intent: Intent, expected=None):
         self._data_frame.loc[self._data_frame.size, ['intent', 'expected']] = [intent, expected]
@@ -73,14 +78,13 @@ class DialogContextModel:
                 return
             case Intent.INGREDIENTS:
                 subtrees = lu.parse_sentence(sentence)
-                right = 0
-                wrong = 0
+                right, wrong = [], []
                 for tree in subtrees:
                     if tree in expected:
-                        right += 1
+                        right.append(tree)
                         self.context.set_ingredient(frames.IngredientFrame(str(tree)))
                     elif tree in ingredients:
-                        wrong += 1
+                        wrong.append(tree)
                 self.memory.user_update(sentence=sentence, right=right, wrong=wrong, matched=right > wrong,
                                         complete=self.context.is_complete())
                 return

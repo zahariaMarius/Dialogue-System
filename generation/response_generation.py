@@ -5,6 +5,7 @@ from simplenlg.realiser.english import *
 from simplenlg.phrasespec import *
 from simplenlg.features import *
 import random
+from dm.context_model import Intent
 
 
 class ResponseGenerator:
@@ -22,9 +23,24 @@ class ResponseGenerator:
         return "Mr Potter, tell me the ingredients for " + potion + " potion"
 
     # per risposte parzialmente giuste (o mancano ingredienti o alcuni sono giusti e altri no)
-    def clarify(self, data_frame, expected):
-        # if intent == 'ingredient':
-            ing = self.nlgFactory.createNounPhrase('amorentia')
+    def clarify(self, data_frame, ingredient=None):
+        intent = data_frame['intent'].values[-1]
+        expected = data_frame['expected'].values[-1]
+
+        if intent == Intent.INGREDIENTS:
+            answer = ['Mr. Potter, I think you might be forgetting some ingredients',
+                      'You still have {} ingredients to go'.format(len(expected)),
+                      'So far so good Potter but you should tell me some more'][random.randrange(3)]
+            return answer
+
+        elif intent == Intent.Y_N_INGREDIENT:
+            answer = ['Can you tell me if {} is present in this potion?'.format(ingredient),
+                      'Mr. Potter, do you think {} is an ingredient of this potion?'.format(ingredient)][
+                random.randrange(2)]
+            return answer
+
+        else:
+            ing = self.nlgFactory.createNounPhrase(ingredient)
             ing.addPreModifier('sure about')
             clause = self.nlgFactory.createClause('you', 'be', ing)
             clause.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.YES_NO)
