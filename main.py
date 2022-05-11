@@ -28,3 +28,5 @@ if __name__ == '__main__':
         print(dialog_manager.dialog_context_model.context.show_attributes())
         print()
         dialog_manager.user_input(input('Potter: '))
+
+

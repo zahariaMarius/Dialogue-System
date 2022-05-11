@@ -16,8 +16,8 @@ class ResponseGenerator:
     def __init__(self) -> None:
         super().__init__()
 
-    def evaluate(self):
-        return 10
+    def evaluate(self, complete, matches):
+        return complete * (matches.sum() / len(matches))
 
     def initiate_exam(self, potion):
         return "Mr Potter, tell me the ingredients for " + potion + " potion"
@@ -47,15 +47,25 @@ class ResponseGenerator:
             return str(self.realiser.realise(clause))
 
     # per risposte giuste
-    def approval(self):
-        answer = ['Good job Potter, I definitely was not expecting this result from you',
-                  'Well, well Potter, I must congratulate you. It seems like your friendship with miss Granger is paying off after all',
-                  'It seems like you have gotten all the ingredients right Potter',
-                  'It is easy to see that nearly six years of magical education have not been wasted on you, Potter',
-                  'You guessed all the ingredients Potter, after all I would expect nothing less from a celebrity like you'][
-            random.randrange(5)]
+    def eval(self, complete, n_questions, false_matches, matches):
+        evaluation = self.evaluate(complete, matches)
 
-        evaluation = self.evaluate()
+        if evaluation == 100:
+            answer = ['Good job Potter, I definitely was not expecting this result from you. ',
+                      'Well, well Potter, I must congratulate you. It seems like your friendship with miss Granger is paying off after all. ',
+                      'It seems like you have gotten all the ingredients right Potter. ',
+                      'It is easy to see that nearly six years of magical education have not been wasted on you, Potter. ',
+                      'You guessed all the ingredients Potter, after all I would expect nothing less from a celebrity like you. '][
+                random.randrange(5)]
+        elif evaluation > 50:
+            answer = [
+                'Your exam wasn\'t too bad, Potter. Of course I would expect something more from a know-it-all like you.',
+                'Nice try Potter, you passed this exam. ',
+                'You passed the exam Potter, though I wouldn\'t celebrate too much'][random.randrange(3)]
+        else:
+            answer = ['You are just as useless as your father Potter, you didn\'t pass this exam',
+                      'I would\'ve expected nothing more from you Potter, I can see you were raised by muggles'][
+                random.randrange(2)]
         answer += 'Your final evaluation for the class of Potions is' + str(evaluation)
         return answer
 
@@ -66,8 +76,11 @@ class ResponseGenerator:
                   'Mr Potter you better concentrate if you don\'t want me to take away points from Gryffindor',
                   'How extraordinarily like your father you are, Potter. He too was exceedingly bad at potions'][
             random.randrange(4)]
-        answer += ', I suggest you tell me some ingredients'
+        answer += ', I suggest you tell me some real ingredients'
         return answer
 
     def greeting(self, potion):
         return "Welcome Mr. Potter"
+
+    def back_up_strategy(self):
+        return "Your answer was unclear, please try again"

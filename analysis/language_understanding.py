@@ -21,6 +21,7 @@ def check_sentence(sentence):
     print(bools)
     return score
 
+
 def parse_sentence(sentence):
     nlp = spacy.load('en_core_web_trf')
     doc = nlp(sentence, disable=['ner', 'lemmatizer', 'textcat'])
@@ -28,4 +29,18 @@ def parse_sentence(sentence):
     ingredients = [np.text
                    for nc in doc.noun_chunks
                    for np in [nc, doc[nc.root.left_edge.i: nc.root.right_edge.i + 1]]]
+    print(ingredients)
     return list(dict.fromkeys(ingredients))
+
+
+def is_positive(sentence):
+    pos, neg = 0, 0
+    for word in word_tokenize(sentence):
+        if word in neg_words:
+            neg += 1
+        elif word in pos_words:
+            pos += 1
+    if pos == neg:
+        return None
+    else:
+        return pos > neg

@@ -9,6 +9,7 @@ class DialogControl:
         super().__init__()
         self._dialog_context_model = dialog_context_model
         self._response_generator = ResponseGenerator()
+        self._n_questions = random.randrange(5, 10)
 
     def choose_output(self):
         mem = self._dialog_context_model.memory.get_data_frame()
@@ -22,19 +23,26 @@ class DialogControl:
             wrong = mem['wrong'].values[-1]
             complete = mem['complete'].values[-1]
             intent = mem['intent'].values[-1]
+            sentence = mem['sentence'].values[-1]
+            expected = mem['expected'].values[-1]
+            end_eval_matches = mem['matched'].values[-1] is False and (
+                    mem['matched'].values[-1] and mem['matched'].values[-2] and mem['matched'].values[-3])
+            self._n_questions -= 1
+
             ingredient = None
             if intent == Intent.HANDSHAKE:  # la seconda interazione chiede gli ingredienti della pozione asociata al frame --> tutti gli ingredienti sono in 'expected'
                 self._dialog_context_model.memory.system_update(intent=Intent.INGREDIENTS, expected=potions[potion])
                 return self._response_generator.initiate_exam(potion)
             else:  # entro qui a partire dalla terza volta che Piton parla
-                if intent == Intent.INGREDIENTS and len(right) == 0 and len(
-                        wrong) == 0:  # non sono stati detti né ingredienti giusti né sbagliati --> richiedo gli ingredienti
-                    self._dialog_context_model.memory.system_update(intent=Intent.INGREDIENTS,
-                                                                    expected=mem['expected'].values[-1])
+                if sentence != sentence:
+                    return self._response_generator.back_up_strategy()
+                elif intent == Intent.INGREDIENTS and len(right) == 0 and len(wrong) == 0:
+                    self._dialog_context_model.memory.system_update(intent=intent, expected=expected)
                     return self._response_generator.refusal()
-                elif complete == 100:  # il frame è stato completato --> passo alla valutazione
+                elif complete == 100 or self._n_questions < 0 or end_eval_matches:  # il frame è stato completato --> passo alla valutazione
                     self._dialog_context_model.memory.system_update(intent=Intent.EVALUATION)
-                    return self._response_generator.approval()
+                    return self._response_generator.eval(complete, self._n_questions, end_eval_matches,
+                                                         mem['matched'].values)
                 else:
                     i = None
                     if intent == Intent.INGREDIENTS:
@@ -52,7 +60,7 @@ class DialogControl:
                         ingredient = ings[random.randrange(len(ings))]
                         expected = [ingredient in potions[potion], ingredient]
                     else:  # domanda del tipo Yes/No --> setto casualmente 'expected' e genererò la domanda in base a questo in clarif
-                        if isinstance(wrong, list) and len(wrong) > 0:
+                        if len(wrong) > 0:
                             expected = 'no'
                             ingredient = wrong[random.randrange(len(wrong))]
                         else:
