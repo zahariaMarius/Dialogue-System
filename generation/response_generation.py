@@ -17,7 +17,7 @@ class ResponseGenerator:
         super().__init__()
 
     def evaluate(self, complete, matches):
-        return complete * (matches.sum() / len(matches))
+        return int(complete * (sum(matches) / len(matches)))
 
     def initiate_exam(self, potion):
         return "Mr Potter, tell me the ingredients for " + potion + " potion"
@@ -47,8 +47,10 @@ class ResponseGenerator:
             return str(self.realiser.realise(clause))
 
     # per risposte giuste
-    def eval(self, complete, n_questions, false_matches, matches):
-        evaluation = self.evaluate(complete, matches)
+    def eval(self, complete, matches):
+        print('complete {}'.format(complete))
+        print('matches {}'.format(matches))
+        evaluation = self.evaluate(complete, matches[1:-1])
 
         if evaluation == 100:
             answer = ['Good job Potter, I definitely was not expecting this result from you. ',

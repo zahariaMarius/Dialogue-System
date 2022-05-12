@@ -10,6 +10,7 @@ class DialogControl:
         self._dialog_context_model = dialog_context_model
         self._response_generator = ResponseGenerator()
         self._n_questions = random.randrange(5, 10)
+        print(self._n_questions)
 
     def choose_output(self):
         mem = self._dialog_context_model.memory.get_data_frame()

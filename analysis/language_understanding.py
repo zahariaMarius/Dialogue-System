@@ -8,6 +8,7 @@ import string
 stop = stopwords.words('english')
 punct = string.punctuation + '’'
 lemmatizer = WordNetLemmatizer()
+nlp = spacy.load('en_core_web_trf')
 
 
 def check_sentence(sentence):
@@ -23,9 +24,7 @@ def check_sentence(sentence):
 
 
 def parse_sentence(sentence):
-    nlp = spacy.load('en_core_web_trf')
-    doc = nlp(sentence, disable=['ner', 'lemmatizer', 'textcat'])
-
+    doc = nlp(sentence)
     ingredients = [np.text
                    for nc in doc.noun_chunks
                    for np in [nc, doc[nc.root.left_edge.i: nc.root.right_edge.i + 1]]]

@@ -90,16 +90,19 @@ class DialogContextModel:
             elif intent == Intent.Y_N or intent == Intent.Y_N_INGREDIENT:
                 positive_sentence = lu.is_positive(sentence)
                 print(positive_sentence)
-                if positive_sentence is not None:
+                if positive_sentence is not None:  # da rivedere
                     if intent == Intent.Y_N:
-                        matched = (positive_sentence and expected == 'yes') or (not positive_sentence and expected == 'no')
+                        matched = (positive_sentence and expected == 'yes') or (
+                                not positive_sentence and expected == 'no')
                         self.memory.user_update(sentence=sentence, matched=matched,
                                                 complete=self.context.is_complete())
                     else:
-                        matched = (positive_sentence and expected[0] is True) or (
-                                not positive_sentence and expected[0] is False)
-                        if positive_sentence and expected[0] == 'yes':
+                        matched = (positive_sentence == expected[0])
+                        if positive_sentence and expected[0] is True:
                             self.context.set_ingredient(frames.IngredientFrame(expected[1]))
                         self.memory.user_update(sentence=sentence, matched=matched,
                                                 complete=self.context.is_complete())
-                    return
+                else:
+                    self.memory.user_update(sentence=sentence, matched=False,
+                                            complete=self.context.is_complete())
+
