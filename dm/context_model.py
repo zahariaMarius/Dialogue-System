@@ -15,6 +15,7 @@ class Intent(Enum):
     EVALUATION = 5
 
 
+
 """
 Classe che gestisce la memoria, è una tabella con i seguenti campi:
 - intent --> l'intent del sistema (tipo di domanda)
@@ -84,7 +85,7 @@ class DialogContextModel:
                         self.context.set_ingredient(frames.IngredientFrame(str(tree)))
                     elif tree in ingredients:
                         wrong.append(tree)
-                self.memory.user_update(sentence=sentence, right=right, wrong=wrong, matched=right > wrong,
+                self.memory.user_update(sentence=sentence, right=right, wrong=wrong, matched=len(right) > len(wrong),
                                         complete=self.context.is_complete())
                 return
             elif intent == Intent.Y_N or intent == Intent.Y_N_INGREDIENT:

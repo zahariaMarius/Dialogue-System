@@ -10,8 +10,7 @@ ingredients = ['fluxweed', 'knotgrass', 'lacewing flies', 'leeches', 'horn of bi
                'dew', 'death\'s-head hawk chrysalis', 'newt spleens', 'bananas', 'an orange snake', 'a green leaf',
                'angel\'s Trumpet', 'valerian sprigs', 'dittany', 'baneberry', 'cheese', 'death- cap', 'pumpkin juice',
                'unicorn horn', 'caterpillars', 'orange juice', 'extract of gurdyroot', 'dragon dung',
-               'salamander blood',
-               ' flobberworm mucus']
+               'salamander blood', ' flobberworm mucus']
 
 pos_words = ['yes', 'course', 'sure', 'surely', 'do', 'always', 'yeah', 'believe', 'so', 'think']
 neg_words = ['no', 'not', 'neither', 'never', 'none', 'nobody', 'nothing', 'nowhere', 'n\'t']

@@ -23,21 +23,34 @@ class ResponseGenerator:
         return "Mr Potter, tell me the ingredients for " + potion + " potion"
 
     # per risposte parzialmente giuste (o mancano ingredienti o alcuni sono giusti e altri no)
-    def clarify(self, data_frame, ingredient=None):
+    def clarify(self, data_frame, ingredient=None, matched=None, repeated=None):
         intent = data_frame['intent'].values[-1]
         expected = data_frame['expected'].values[-1]
+        print('repeated: ', repeated)
+        if matched:
+            feedback = ['Nice job, ',
+                        'So far so good Mr Potter, ',
+                        'Good job, ',
+                        'You are right, '][random.randrange(4)]
+        else:
+            feedback = ['I wouldn\'t be so sure about it Mr Potter, ',
+                        'You are wrong as usual, ',
+                        'Nice try but of course you are wrong. '][random.randrange(3)]
 
         if intent == Intent.INGREDIENTS:
-            answer = ['Mr. Potter, I think you might be forgetting some ingredients',
-                      'You still have {} ingredients to go'.format(len(expected)),
-                      'So far so good Potter but you should tell me some more'][random.randrange(3)]
-            return answer
+            answer = ['but I think you might be forgetting some ingredients. ',
+                      'but You still have {} ingredients to go. '.format(len(expected)),
+                      'but you should tell me some more ingredients. '][random.randrange(3)]
+            if repeated:
+                answer = 'Please don\'t repeat yourself. '
+                return answer
+            return feedback + answer
 
         elif intent == Intent.Y_N_INGREDIENT:
             answer = ['Can you tell me if {} is present in this potion?'.format(ingredient),
                       'Mr. Potter, do you think {} is an ingredient of this potion?'.format(ingredient)][
                 random.randrange(2)]
-            return answer
+            return feedback + answer
 
         else:
             ing = self.nlgFactory.createNounPhrase(ingredient)
@@ -66,10 +79,11 @@ class ResponseGenerator:
                 'You passed the exam Potter, though I wouldn\'t celebrate too much'][random.randrange(3)]
         else:
             answer = ['You are just as useless as your father Potter, you didn\'t pass this exam',
-                      'I would\'ve expected nothing more from you Potter, I can see you were raised by muggles'][
+                      'I would\'ve expected nothing more from you Potter, I can see you were raised by muggles',
+                      'It\'s nice to see that nearly six years of magical education have been wasted on you, Potter.'][
                 random.randrange(2)]
-        answer += 'Your final evaluation for the class of Potions is' + str(evaluation)
-        return answer
+        answer += ' Your final evaluation for the class of Potions is ' + str(evaluation)
+        return ['This is the end of this exam. ', answer, 'AVADAKEDAVRA']
 
     # per risposte sbagliate
     def refusal(self):

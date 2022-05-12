@@ -1,6 +1,6 @@
 import spacy
 from spacy import displacy
-from db.potion_dictionary import pos_words, neg_words
+from db.potion_dictionary import pos_words, neg_words, ingredients
 from nltk.corpus import words, stopwords
 from nltk import WordNetLemmatizer, word_tokenize
 import string
@@ -13,14 +13,8 @@ nlp = spacy.load('en_core_web_trf')
 
 def check_sentence(sentence):
     sentence = [lemmatizer.lemmatize(word) for word in word_tokenize(sentence.lower()) if word not in punct]
-    bools = [word in words.words() for word in sentence]
-    score = (sum(bools) / len(bools)) > 0.5
-    print(sentence)
-    print()
-    print(sum(bools) / len(bools))
-    print()
-    print(bools)
-    return score
+    bools = [word in words.words() or word in ingredients for word in sentence]
+    return (sum(bools) / len(bools)) > 0.5
 
 
 def parse_sentence(sentence):
