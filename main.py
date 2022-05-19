@@ -16,20 +16,21 @@ if __name__ == '__main__':
     stop = True
 
     while (stop):
-        print('Prima system output')
-        with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.max_colwidth', None):
-            print(dialog_manager.dialog_context_model.memory.get_data_frame())
-        print('frame')
-        print(dialog_manager.dialog_context_model.context.show_attributes())
+        # print('Prima system output')
+        # with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.max_colwidth', None):
+        #     print(dialog_manager.dialog_context_model.memory.get_data_frame())
+        # print('frame')
+        # print(dialog_manager.dialog_context_model.context.show_attributes())
         # print()
         dialog_manager.system_output()
         stop = dialog_manager.dialog_context_model.memory.get_data_frame()['intent'].values[-1] != Intent.EVALUATION
         if stop:
-            print()
-            print('Dopo system output')
-            with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.max_colwidth', None):
-                print(dialog_manager.dialog_context_model.memory.get_data_frame())
-            print('frame')
-            print(dialog_manager.dialog_context_model.context.show_attributes())
-            print()
+            # print()
+            # print('Dopo system output')
+            # with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.max_colwidth', None):
+            #     print(dialog_manager.dialog_context_model.memory.get_data_frame())
+            # print('frame')
+            # print(dialog_manager.dialog_context_model.context.show_attributes())
+            # print()
+            #audio = speech_recognizer.recognizer()
             dialog_manager.user_input(input('Potter: '))

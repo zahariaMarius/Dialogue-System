@@ -81,7 +81,7 @@ class ResponseGenerator:
             answer = ['You are just as useless as your father Potter, you didn\'t pass this exam',
                       'I would\'ve expected nothing more from you Potter, I can see you were raised by muggles',
                       'It\'s nice to see that nearly six years of magical education have been wasted on you, Potter.'][
-                random.randrange(2)]
+                random.randrange(3)]
         answer += ' Your final evaluation for the class of Potions is ' + str(evaluation)
         return ['This is the end of this exam. ', answer, 'AVADAKEDAVRA']
 

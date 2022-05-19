@@ -10,7 +10,7 @@ class DialogControl:
         self._dialog_context_model = dialog_context_model
         self._response_generator = ResponseGenerator()
         self._n_questions = random.randrange(5, 10)
-        print(self._n_questions)
+        # print(self._n_questions)
 
     def choose_output(self):
         mem = self._dialog_context_model.memory.get_data_frame()
@@ -37,7 +37,7 @@ class DialogControl:
                 if len(mem['matched'].values) > 3:
                     end_eval_matches = mem['matched'].values[-1] is False and (
                             mem['matched'].values[-1] == mem['matched'].values[-2] == mem['matched'].values[-3])
-                    print("end eval: ", end_eval_matches)
+                    # print("end eval: ", end_eval_matches)
                 if complete == 100 or self._n_questions < 0 or end_eval_matches:  # il frame è stato completato --> passo alla valutazione
                     self._dialog_context_model.memory.system_update(intent=Intent.EVALUATION)
                     return self._response_generator.eval(complete, mem['matched'].values)
@@ -62,6 +62,8 @@ class DialogControl:
                         expected = [ing for ing in potions[potion] if
                                     ing not in self._dialog_context_model.context.get_ingredients()]
                         repeated = len(set(wrong).intersection(set(potions[potion]))) > 0
+                        # print('wrong: ',set(wrong))
+                        # print('set ingredienti', set(potions[potion]))
                     elif i == Intent.Y_N_INGREDIENT:  # scelgo un ingrediente a caso dalla lista degli ingredienti (escludendo quelli già elencati e nel frame) --> in 'expected' Yes/No
                         ings = [i for i in ingredients if i not in self._dialog_context_model.context.get_ingredients()]
                         ingredient = ings[random.randrange(len(ings))]

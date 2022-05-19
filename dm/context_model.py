@@ -89,7 +89,7 @@ class DialogContextModel:
                 return
             elif intent == Intent.Y_N or intent == Intent.Y_N_INGREDIENT:
                 positive_sentence = lu.is_positive(sentence)
-                print(positive_sentence)
+                # print(positive_sentence)
                 if positive_sentence is not None:  # da rivedere
                     if intent == Intent.Y_N:
                         matched = (positive_sentence and expected == 'yes') or (
