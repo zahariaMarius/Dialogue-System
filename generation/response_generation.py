@@ -26,7 +26,7 @@ class ResponseGenerator:
     def clarify(self, data_frame, ingredient=None, matched=None, repeated=None):
         intent = data_frame['intent'].values[-1]
         expected = data_frame['expected'].values[-1]
-        print('repeated: ', repeated)
+        #print('repeated: ', repeated)
         if matched:
             feedback = ['Nice job, ',
                         'So far so good Mr Potter, ',
@@ -61,8 +61,8 @@ class ResponseGenerator:
 
     # per risposte giuste
     def eval(self, complete, matches):
-        print('complete {}'.format(complete))
-        print('matches {}'.format(matches))
+        #print('complete {}'.format(complete))
+        #print('matches {}'.format(matches))
         evaluation = self.evaluate(complete, matches[1:-1])
 
         if evaluation == 100:

@@ -8,16 +8,15 @@ from enum import Enum
 
 class Intent(Enum):
     HANDSHAKE = 0
-    N_INGREDIENTS = 1
-    INGREDIENTS = 2
-    Y_N = 3
-    Y_N_INGREDIENT = 4
-    EVALUATION = 5
+    INGREDIENTS = 1
+    Y_N = 2
+    Y_N_INGREDIENT = 3
+    EVALUATION = 4
 
 
 
 """
-Classe che gestisce la memoria, è una tabella con i seguenti campi:
+Classe che gestisce la memoria, è un data frame con i seguenti campi:
 - intent --> l'intent del sistema (tipo di domanda)
 - expected --> la giusta risposta che il sistema si aspetta di ricevere
 - sentence --> la risposta dell'utente al sistema

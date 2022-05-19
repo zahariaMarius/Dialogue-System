@@ -14,11 +14,3 @@ ingredients = ['fluxweed', 'knotgrass', 'lacewing flies', 'leeches', 'horn of bi
 
 pos_words = ['yes', 'course', 'sure', 'surely', 'do', 'always', 'yeah', 'believe', 'so', 'think']
 neg_words = ['no', 'not', 'neither', 'never', 'none', 'nobody', 'nothing', 'nowhere', 'n\'t']
-
-# FRASI
-# Yes, it is easy to see that nearly six years of magical education have (not) been wasted on you, Potter.
-# I would expect nothing more sophisticated from you
-#
-# Well, it may have escaped your notice, but *** IS NOT AN INGREDIENT FOR THIS POTION.
-# at the end of this lesson we will feed a few drops of this potion to your toad and see what happens. Perhaps that will encourage you to do it properly.
-# Well, it may have escaped your notice, but *** IS NOT AN INGREDIENT FOR THIS POTION.

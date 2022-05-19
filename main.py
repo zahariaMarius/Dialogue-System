@@ -1,10 +1,14 @@
 import numpy as np
 import pandas as pd
+import torch
 import dm.dialog_manager as dm
 import warnings
 from dm.context_model import Intent
+from analysis import speech_recognizer
 
 warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning)
+warnings.filterwarnings(action='ignore', category=torch.jit.TracerWarning)  # suppress TracerWarning
+warnings.warn('User provided device_type of \'cuda\', but CUDA is not available. Disabling')
 
 if __name__ == '__main__':
     # crea manager e inizializza il contesto

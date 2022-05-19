@@ -6,7 +6,7 @@ def recognizer():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         r.adjust_for_ambient_noise(source)
-        print("Say something!")
+        print('Potter: ')
         audio = r.listen(source)
 
     # recognize speech using Google Speech Recognition
